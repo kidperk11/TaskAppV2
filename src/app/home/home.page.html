@@ -1,20 +1,124 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Task Stack
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- <section *ngIf="(afAuth.user | async) as user; else loginItems"></section> -->
+    <ion-list>
+      <ion-item *ngFor="let task of taskData">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                {{ task.taskName }}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="calendar-clear-outline"></ion-icon>
+              </ion-col>
+              <ion-col size="10">
+                {{ task.dueDate }}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="time-outline"></ion-icon>
+              </ion-col>
+              <ion-col size="10">
+                {{ task.dueTime }}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="document-text-outline"></ion-icon>
+              </ion-col>
+              <ion-col size="10">
+                {{ task.description }}
+              </ion-col>
+            </ion-row>
+            <!-- <ion-button expand="block" color="success" routerLink="/tabs/tab1/{{task.taskID}}">Edit</ion-button>
+            <ion-button expand="block" color="danger" (click)="deleteTask()">Delete</ion-button> -->
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  <!-- </section> -->
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- <ion-card>
+    <ion-card-content>
+      <ion-card-title>Task Stack Introduction</ion-card-title>
+      <ion-card-title color="success">Priority Level: Low</ion-card-title>
+      <ion-card-title>Due on 3/9 at 9 PM</ion-card-title>
+      <ion-card-header>This is the task stack! This is where all tasks created in the "Add Task" tab will be displayed.</ion-card-header>
+        <ion-button (click)=completeButton() slot="start" color="success">
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)=moveButton() slot="end" color="warning">
+          <ion-icon name="arrow-redo-outline"></ion-icon>
+        </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>Host Project on Turing</ion-card-title>
+      <ion-card-title color="warning">Priority Level: Medium</ion-card-title>
+      <ion-card-title>Due on 3/8 at 11:59 PM</ion-card-title>
+      <ion-card-header>Host the "www" file for the app on Turing. Check the project 4 instructions for the correct directory!</ion-card-header>
+        <ion-button (click)=completeButton() slot="start" color="success">
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)=moveButton() slot="end" color="warning">
+          <ion-icon name="arrow-redo-outline"></ion-icon>
+        </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>Submit Project 4</ion-card-title>
+      <ion-card-title color="danger">Priority Level: High</ion-card-title>
+      <ion-card-title>Due on 3/8 at 11:59 PM</ion-card-title>
+      <ion-card-header>Submit the zipped project 4, written report, and website URL to Blackboard. Test the URL before submitting!</ion-card-header>
+        <ion-button (click)=completeButton() slot="start" color="success">
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)= moveButton() slot="end" color="warning">
+          <ion-icon name="arrow-redo-outline"></ion-icon>
+        </ion-button>
+    </ion-card-content>
+  </ion-card> -->
+
+  <!----<ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 2</ion-title>
+    </ion-toolbar>
+  </ion-header>---->
+
+  <!-- TEMPORARY LOGIN SOLUTION -->
+
+  <!-- <ng-template #loginItems>
+    <h1>Welcome to TaskApp!</h1>
+    <ion-item>
+      <ion-label>
+        Email
+      </ion-label>
+      <ion-input [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Password
+      </ion-label>
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    </ion-item>
+    <ion-button (click)="createAccount()">Sign Up</ion-button>
+    <ion-button (click)="login()">Login</ion-button>
+    
+    </ng-template> -->
+    <ion-button type="submit" (click)="authService.SignOut()" expand="block">Logout</ion-button>
 </ion-content>
