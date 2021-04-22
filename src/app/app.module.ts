@@ -1,4 +1,4 @@
-import { AuthenticationService } from './shared/authentication-service';
+
 import { environment } from './../environments/environment';
 
 import { NgModule } from '@angular/core';
@@ -18,7 +18,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(environment.firebase), AngularFireAuthModule, AngularFirestoreModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  AuthenticationService,
   AngularFirestoreModule
   ],
   bootstrap: [AppComponent],

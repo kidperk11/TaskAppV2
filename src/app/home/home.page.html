@@ -7,9 +7,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <section *ngIf="(afAuth.user | async) as user; else loginItems"></section> -->
+  <section *ngIf="(afAuth.user | async) as user; else loginItems">
     <ion-list>
-      <ion-item *ngFor="let task of taskData">
+      <ion-item *ngFor="let task of taskData" routerLink="/add-task/{{ task.taskID }}">
         <ion-label>
           <ion-grid>
             <ion-row>
@@ -47,7 +47,13 @@
         </ion-label>
       </ion-item>
     </ion-list>
-  <!-- </section> -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button routerLink="/add-task/new">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-button (click)="logout()">TEMPORARY Logout</ion-button>
+  </section>
 
   <!-- <ion-card>
     <ion-card-content>
@@ -102,7 +108,7 @@
 
   <!-- TEMPORARY LOGIN SOLUTION -->
 
-  <!-- <ng-template #loginItems>
+  <ng-template #loginItems>
     <h1>Welcome to TaskApp!</h1>
     <ion-item>
       <ion-label>
@@ -118,7 +124,12 @@
     </ion-item>
     <ion-button (click)="createAccount()">Sign Up</ion-button>
     <ion-button (click)="login()">Login</ion-button>
+    <ion-button (click)="recoverPassword()">Forgot Password?</ion-button>
+
     
-    </ng-template> -->
-    <ion-button type="submit" (click)="authService.SignOut()" expand="block">Logout</ion-button>
+    </ng-template>
+
+
+    <!-- <ion-button type="submit" (click)="authService.SignOut()" expand="block">Logout</ion-button> -->
+    
 </ion-content>

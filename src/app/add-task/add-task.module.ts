@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VerifyEmailPageRoutingModule } from './verify-email-routing.module';
+import { AddTaskPageRoutingModule } from './add-task-routing.module';
 
-import { VerifyEmailPage } from './verify-email.page';
+import { AddTaskPage } from './add-task.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VerifyEmailPageRoutingModule
+    AddTaskPageRoutingModule
   ],
-  declarations: [VerifyEmailPage]
+  declarations: [AddTaskPage]
 })
-export class VerifyEmailPageModule {}
+export class AddTaskPageModule {}
