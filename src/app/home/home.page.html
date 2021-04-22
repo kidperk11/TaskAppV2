@@ -10,6 +10,7 @@
   <section *ngIf="(afAuth.user | async) as user; else loginItems">
     <ion-list>
       <ion-item *ngFor="let task of taskData" routerLink="/add-task/{{ task.taskID }}">
+        
         <ion-label>
           <ion-grid>
             <ion-row>
@@ -130,6 +131,6 @@
     </ng-template>
 
 
-    <!-- <ion-button type="submit" (click)="authService.SignOut()" expand="block">Logout</ion-button> -->
+    <!-- <ion-button type="submit" (click)="authService.SignOut()" expand="block">Logout</ion-button> yup -->
     
 </ion-content>

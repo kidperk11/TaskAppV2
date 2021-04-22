@@ -24,7 +24,9 @@ export class HomePage {
     private firestore: AngularFirestore,
     public alertController: AlertController
   ) {
-    this.firestore.collection('taskData').valueChanges().subscribe(taskData =>{
+    this.firestore.collection('taskData')
+    .valueChanges({ idField: 'taskID'})
+    .subscribe(taskData =>{
       this.taskData = taskData;
       console.log(taskData);
     });

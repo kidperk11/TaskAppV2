@@ -20,12 +20,14 @@ export class AddTaskPage implements OnInit {
      private route: ActivatedRoute) { }
 
   ngOnInit() {
+    console.log(this.task);
     this.taskID = this.route.snapshot.params.taskID || 'new';
 
-
     if(this.taskID !== 'new'){
-      this.firestore.doc('taskData/${this.taskID}').snapshotChanges().subscribe((task: any) => (this.task = task));
-      console.log(this.route.snapshot.params.taskID);
+      this.firestore.doc('taskData/${this.taskID}')
+      .valueChanges()
+      .subscribe((task: any) => (this.task = task));
+      console.log(this.firestore.doc('taskData/${this.taskID}'));
     }
   }
 
