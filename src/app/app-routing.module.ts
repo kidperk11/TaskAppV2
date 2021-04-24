@@ -15,6 +15,19 @@ const routes: Routes = [
     path: 'add-task/:taskID',
     loadChildren: () => import('./add-task/add-task.module').then( m => m.AddTaskPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'password-reset',
+    loadChildren: () => import('./password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  
   
 ];
 
