@@ -9,6 +9,30 @@
 <ion-content padding>
   <section *ngIf="(afAuth.user | async) as user; else loginItems">
     <ion-item>
+    <ion-label position="floating">Task Name</ion-label>
+    <!-- <ion-input type="hidden" [(ngModel)]="task.email"></ion-input> -->
+    <ion-input type="text" [(ngModel)]="task.taskName"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Due Date</ion-label>
+    <ion-datetime pickerFormat="MM/DD/YYYY" displayFormat="MM/DD/YYYY" [(ngModel)]="task.dueDate"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Due Time</ion-label>
+    <ion-datetime pickerFormat="h:mm A" displayFormat="h:mm A" [(ngModel)]="task.dueTime"></ion-datetime>
+  </ion-item>
+  <!-- <ion-item>
+    <ion-label position="floating">Priority Level</ion-label>
+    <ion-input type="text" [(ngModel)]="task.priority"></ion-input>
+  </ion-item> -->
+  <ion-item>
+    <ion-label position="floating">Description</ion-label>
+    <ion-input type="text" [(ngModel)]="task.description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button expand="block" (click)="addTask()">Add Task</ion-button>
+  </ion-item>
+    <!-- <ion-item>
       <ion-input type="text" placeholder="Task Name" name="taskName"></ion-input>
       <ion-datetime type="date" placeholder="Due Date" name="dueDate"></ion-datetime>
       <ion-datetime type="time" placeholder="Due Time" name="dueTime"></ion-datetime>
@@ -16,15 +40,51 @@
       <div class="item-note" >
         <ion-button (click)="addTask()"><ion-icon name="add"></ion-icon></ion-button>
       </div>
-    </ion-item>
+    </ion-item> -->
     <div padding>
       <ion-list>
         <!-- <ion-item *ngFor="let todo of taskList; let i = index">
           {{todo}} -->
         <ion-item *ngFor="let todo of taskData;">
-          {{todo.taskName}}
+          <!-- {{todo.taskName}} -->
+          <ion-label>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  {{ todo.taskName }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="1">
+                  <ion-icon name="calendar-clear-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="10" >
+                 {{ convertDate(todo.dueDate) }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="1">
+                  <ion-icon name="time-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="10">
+                  {{ convertTime(todo.dueDate) }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="1">
+                  <ion-icon name="document-text-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="10">
+                  {{ todo.description }}
+                </ion-col>
+              </ion-row>
+              <!-- <ion-button expand="block" color="success" routerLink="/tabs/tab1/{{task.taskID}}">Edit</ion-button>
+              <ion-button expand="block" color="danger" (click)="deleteTask()">Delete</ion-button> -->
+            </ion-grid>
+          </ion-label>
           <div class="item-note" slot=end>
-            <ion-button fill=clear (click)="updateTask(todo.id)">
+            <!-- <ion-button fill=clear routerLink="/add-task/{{ todo.id }}"> -->
+            <ion-button fill=clear (click)="updateTask(todo.id, todo.taskName, todo.description)">
               <ion-icon name="create"></ion-icon>
             </ion-button>
             <ion-button fill=clear (click)="deleteTask(todo.id)">
