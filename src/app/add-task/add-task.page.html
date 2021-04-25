@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>add-task</ion-title>
+    <ion-title>Edit</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,11 +13,11 @@
   </ion-item>
   <ion-item>
     <ion-label position="floating">Due Date</ion-label>
-    <ion-input type="text" [(ngModel)]="task.dueDate"></ion-input>
+    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="task.dueDate"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label position="floating">Due Time</ion-label>
-    <ion-input type="text" [(ngModel)]="task.dueTime"></ion-input>
+    <ion-datetime displayFormat="h:mm A" [(ngModel)]="task.dueTime"></ion-datetime>
   </ion-item>
   <!-- <ion-item>
     <ion-label position="floating">Priority Level</ion-label>
@@ -30,4 +30,23 @@
   <ion-item>
     <ion-button expand="block" (click)="saveTask()">Add Task</ion-button>
   </ion-item>
+  <!-- <ion-item>
+    <ion-label position="floating">Task Name</ion-label>
+    <ion-input type="text" [(ngModel)]="task.taskName"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Due Date</ion-label>
+    <ion-input type="text" [(ngModel)]="task.dueDate"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Due Time</ion-label>
+    <ion- type="text" [(ngModel)]="task.dueTime"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Description</ion-label>
+    <ion-input type="text" [(ngModel)]="task.description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button expand="block" (click)="saveTask()">Add Task</ion-button>
+  </ion-item> -->
 </ion-content>

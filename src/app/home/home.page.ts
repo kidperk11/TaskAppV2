@@ -2,12 +2,11 @@ import { AlertController, NavController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
-
+import * as moment from 'moment';
 interface User{
   email?: string;
   password?: string;
 }
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -19,8 +18,15 @@ export class HomePage implements OnInit{
     password: '',
   };
 
+  task = {
+    taskName: '',
+    dueDate: '',
+    dueTime: '',
+    description: '',
+  };
+
   taskList: string[] = [];
-  taskName: string = '';
+  //taskName: string = '';
   userId: any;
   taskData: any;
   fireStoreList: any;
@@ -53,16 +59,29 @@ export class HomePage implements OnInit{
     //this.fireStoreTaskList = this.firestore.doc<any>('users/' + this.userId).collection('tasks');
   }
 
+  convertDate(ISO){
+    return moment(ISO).format('MM-DD-YYYY');
+  }
+
+  convertTime(ISO){
+    return moment(ISO).format('h:mm a');
+  }
 
   addTask() {
-    if (this.taskName.length > 0) {
-      let task = this.taskName;
+    if (this.task.taskName.length > 0) {
+      // let task = this.task.taskName;
       let id = this.firestore.createId();
       this.fireStoreList.doc(id).set({
         id: id,
-        taskName: task
+        taskName: this.task.taskName,
+        dueDate: this.task.dueDate,
+        dueTime: this.task.dueTime,
+        description: this.task.description
       });
-      this.taskName = "";
+      this.task.taskName = "";
+      this.task.dueDate = "";
+      this.task.dueTime = "";
+      this.task.description = "";
     }
   }
 
@@ -71,16 +90,18 @@ export class HomePage implements OnInit{
     this.fireStoreList.doc(index).delete();
   }
 
-  async updateTask(index) {
+  async updateTask(index, tName, desc) {
+    // this.task = this.fireStoreList.doc(index).valueChanges();
+    // console.log(this.task);
     const alert = await this.alertCtrl.create({
       header: 'Update Task?',
       message: 'Type in your new task to update.',
-      inputs: [{ name: 'editTask', placeholder: 'Task' }],
+      inputs: [{ name: 'taskName', placeholder: tName}, {name: 'description', placeholder: desc}],
       buttons: 
       [{ text: 'Cancel', role: 'cancel' },
                 
       //{ text: 'Update', handler: data => { this.taskList[index] = data.editTask; }}]
-      { text: 'Update', handler: data => { this.fireStoreList.doc(index).update({ taskName: data.editTask }); }}]
+      { text: 'Update', handler: data => { this.fireStoreList.doc(index).update({ taskName: data.taskName, description: data.description }); }}]
     });
     await alert.present();
   }

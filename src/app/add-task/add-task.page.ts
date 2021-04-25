@@ -1,3 +1,4 @@
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,44 +10,62 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AddTaskPage implements OnInit {
   task = {
+    id: '',
     taskName: '',
     dueDate: '',
     dueTime: '',
     description: '',
   };
-  taskID: string = 'new';
+
+  taskList: string[] = [];
+  //taskName: string = '';
+  userId: any;
+  taskData: any;
+  fireStoreList: any;
+  taskID: string = '';
+
   constructor(private firestore: AngularFirestore,
      private router: Router, 
-     private route: ActivatedRoute) { }
+     private route: ActivatedRoute,
+     public afAuth: AngularFireAuth
+     ) {
+      this.afAuth.authState.subscribe(user => {
+        if (user) {
+          this.taskID = this.route.snapshot.params.taskID;
+          this.userId = user.uid;
+          console.log(this.userId);
+          console.log(this.taskID);
+          /*this.fireStoreTaskList = */this.firestore.doc('users/' + this.userId)
+          .collection('taskData')
+          .doc('${this.taskID}')
+          .valueChanges()
+          .subscribe((task: any) =>{
+            this.task = task;
+          });
+          this.fireStoreList = this.firestore.doc('users/' + this.userId).collection('taskData');
+        }
+      });
+      console.log(this.taskData);
+      }
 
   ngOnInit() {
-    console.log(this.task);
-    this.taskID = this.route.snapshot.params.taskID || 'new';
-
-    if(this.taskID !== 'new'){
-      this.firestore.doc('taskData/${this.taskID}')
-      .valueChanges()
-      .subscribe((task: any) => (this.task = task));
-      console.log(this.firestore.doc('taskData/${this.taskID}'));
-    }
+   
   }
 
   saveTask(): void{
-    if (this.taskID === 'new'){
-      this.firestore.collection('taskData')
-      .add(this.task)
+    
+      this.fireStoreList.doc('taskData/${this.taskID}')
+      .update({
+        taskName: this.task.taskName,
+        dueDate: this.task.dueDate,
+        dueTime: this.task.dueTime,
+        description: this.task.description
+      })
       .then(() => {
         this.task = null;
         this.router.navigateByUrl('');
       })
-    }else{
-      this.firestore.doc('taskData/${this.taskID}')
-      .update(this.task)
-      .then(() => {
-        this.task = null;
-        this.router.navigateByUrl('');
-      })
-    }
+    
     
   }
 
